@@ -16,13 +16,62 @@
                   <span class="title-pink">Guessing Game</span>
               </h1>
           <div class="nav-buttons">
-              <button class="nav-btn">About</button>
+              <button class="nav-btn" id="left-child">About</button>
               <button class="nav-btn">Stats</button>
               <button class="nav-btn">Help</button>
-              <button class="nav-btn">Previous</button>
+              <button class="nav-btn" id="right-child">Previous</button>
           </div>
         </header>
+        <main class="game">
+            <div class="search-area">
+                <input type="text" id="game-search" placeholder="🫰🏼Search for an idol!" autocomplete = "off" />
+                    <div class = "game-buttons">
+                        <button class="nav-btn" id="silhouette-button">Show Silhouette</button>
+                        <button class="timerButton nav-btn" id="timer">0:00</button>
+                    </div>
+            </div>
+            <ul id="suggestions"></ul>
+            <div class="table-container">
+                <div class = "table-header">
+                    <div class="header-cell" id ="header-name">Name</div>
+                    <div class="header-cell" id="header-group">Group</div>
+                    <div class="header-cell" id="header-label">Label</div>
+                    <div class="header-cell" id="header-gender">Gender</div>
+                    <div class="header-cell" id="header-age">Age</div>
+                    <div class="header-cell" id="header-height">Height</div>
+                    <div class="header-cell" id="header-debut">Debut</div>
+                </div>
+                <div class="game-body">
+                    <div class="box1">
+                        <div>?</div>
+                    </div>
+                    <div class="box2">
+                        <div>?</div>
+                    </div>
+                    <div class="box3">
+                        <div>?</div>
+                    </div>
+                    <div class="box4">
+                        <div>?</div>
+                    </div>
+                    <div class="box5">
+                        <div>?</div>
+                    </div>
+                    <div class="box6">
+                        <div>?</div>
+                    </div>
+                    <div class="box7">
+                        <div>?</div>
+                    </div>
+                    <div class="box8">
+                        <div>?</div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
     </div>
+
 </body>
 
 </html>
