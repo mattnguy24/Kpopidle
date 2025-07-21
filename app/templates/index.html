@@ -1,77 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Kpopidle – A K-Pop Guessing Game</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kpopidle – A Daily K-Pop Guessing Game</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+  </head>
 
-<body>
-    <div class = "container">
-        <header class = "top-bar">
-              <img src = "static/logo3.png" class = "logo" >
-              <h1 class = "top-writing">
-                  <span class="title-purple">A K-POP<br></span>
-                  <span class="title-pink">Guessing Game</span>
-              </h1>
-          <div class="nav-buttons">
-              <button class="nav-btn" id="left-child">About</button>
-              <button class="nav-btn">Stats</button>
-              <button class="nav-btn">Help</button>
-              <button class="nav-btn" id="right-child">Previous</button>
+  <body>
+    <div class="container">
+      <header class="top-bar">
+        <img src="static/logo3.png" class="logo" />
+        <h1 class="top-writing">
+          <span class="title-purple">A Daily K-POP<br /></span>
+          <span class="title-pink">Guessing Game</span>
+        </h1>
+        <div class="nav-buttons">
+          <button class="nav-btn" id="left-child">About</button>
+          <button class="nav-btn">Stats</button>
+          <button class="nav-btn">Help</button>
+          <button class="nav-btn" id="right-child">Previous</button>
+        </div>
+      </header>
+      <main class="game">
+        <div class="search-area">
+          <input
+            type="text"
+            id="game-search"
+            placeholder="🫰🏼Search for an idol!"
+            autocomplete="off"
+          />
+          <div class="game-buttons">
+            <button class="nav-btn" id="silhouette-button">
+              Show Silhouette
+            </button>
+            <button class="timerButton nav-btn" id="timer">0:00</button>
           </div>
-        </header>
-        <main class="game">
-            <div class="search-area">
-                <input type="text" id="game-search" placeholder="🫰🏼Search for an idol!" autocomplete = "off" />
-                    <div class = "game-buttons">
-                        <button class="nav-btn" id="silhouette-button">Show Silhouette</button>
-                        <button class="timerButton nav-btn" id="timer">0:00</button>
-                    </div>
-            </div>
-            <ul id="suggestions"></ul>
-            <div class="table-container">
-                <div class = "table-header">
-                    <div class="header-cell" id ="header-name">Name</div>
-                    <div class="header-cell" id="header-group">Group</div>
-                    <div class="header-cell" id="header-label">Label</div>
-                    <div class="header-cell" id="header-gender">Gender</div>
-                    <div class="header-cell" id="header-age">Age</div>
-                    <div class="header-cell" id="header-height">Height</div>
-                    <div class="header-cell" id="header-debut">Debut</div>
-                </div>
-                <div class="game-body">
-                    <div class="box1">
-                        <div>?</div>
-                    </div>
-                    <div class="box2">
-                        <div>?</div>
-                    </div>
-                    <div class="box3">
-                        <div>?</div>
-                    </div>
-                    <div class="box4">
-                        <div>?</div>
-                    </div>
-                    <div class="box5">
-                        <div>?</div>
-                    </div>
-                    <div class="box6">
-                        <div>?</div>
-                    </div>
-                    <div class="box7">
-                        <div>?</div>
-                    </div>
-                    <div class="box8">
-                        <div>?</div>
-                    </div>
-                </div>
-
-            </div>
-        </main>
+        </div>
+        <ul class="suggestions"></ul>
+        <table class="game-table">
+          <thead>
+            <tr class="table-header">
+              <th>Name</th>
+              <th>Group</th>
+              <th>Label</th>
+              <th>Gender</th>
+              <th>Age</th>
+              <th>Height</th>
+              <th>Debut</th>
+            </tr>
+          </thead>
+          <tbody class="game-body" id="guess-table">
+            <tr>
+              <td colspan="7">?</td>
+            </tr>
+            <tr>
+              <td colspan="7">?</td>
+            </tr>
+            <tr>
+              <td colspan="7">?</td>
+            </tr>
+            <tr>
+              <td colspan="7">?</td>
+            </tr>
+            <tr>
+              <td colspan="7">?</td>
+            </tr>
+            <tr>
+              <td colspan="7">?</td>
+            </tr>
+            <tr>
+              <td colspan="7">?</td>
+            </tr>
+            <tr>
+              <td colspan="7">?</td>
+            </tr>
+          </tbody>
+        </table>
+      </main>
     </div>
-
-</body>
-
+    <footer class="privacy-policy">Privacy Policy</footer>
+  </body>
 </html>
