@@ -57,13 +57,70 @@ body {
   border-radius: 0;
   font-family: monospace;
 }
-#left-child {
+.left-child {
   border-top-left-radius: 999px;
   border-bottom-left-radius: 999px;
 }
-#right-child {
+.right-child {
   border-top-right-radius: 999px;
   border-bottom-right-radius: 999px;
+}
+.pop-up {
+  opacity: 0;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: all 0.3s ease-in-out;
+  z-index: -1;
+  display: flex;
+}
+.pop-up.open {
+  opacity: 1;
+  z-index: 999;
+}
+.rules-list {
+  list-style-position: inside;
+  list-style: -moz-ethiopic-numeric;
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+  line-height: 1.6;
+  font-size: 1rem;
+  text-alignment: left;
+}
+.help-inner, .pop-up-inner {
+  text-align: left;
+}
+.rules-list li {
+  margin-bottom: 0.75rem;
+  text-align: left;
+}
+.pop-up-inner {
+  background: #FFF3F7FF;
+  padding: 30px 40px;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  position: relative;
+  text-align: center;
+  font-family: sans-serif;
+}
+.close-button {
+  margin-top: 20px;
+  padding: 8px 16px;
+  background: linear-gradient(to bottom, #dfd5ee, #c8b7e6);
+  color: black;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.close-button:hover {
+  background: #333;
 }
 .nav-btn:hover {
   transform: translateY(2px);
@@ -142,7 +199,7 @@ body {
   overflow: hidden;
   margin: 0 auto;
   margin-bottom: 10px;
-  overflow-y: auto; /* enables vertical scrolling */
+  overflow-y: auto;
   max-height: calc(5 * 48px);
 }
 
@@ -179,6 +236,16 @@ body {
   text-decoration: underline;
   background: none;
   border: none;
+}
+
+.game-table th:first-child {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.game-table th:last-child {
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 .game-table tr {
   background-color: white;

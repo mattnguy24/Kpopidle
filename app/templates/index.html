@@ -19,12 +19,59 @@
           <span class="title-pink">Guessing Game</span>
         </h1>
         <div class="nav-buttons">
-          <button class="nav-btn" id="left-child">About</button>
-          <button class="nav-btn">Stats</button>
-          <button class="nav-btn">Help</button>
-          <button class="nav-btn" id="right-child">Previous</button>
+          <button class="nav-btn left-child" id="open-about">About</button>
+          <button class="nav-btn" id="open-stats">Stats</button>
+          <button class="nav-btn" id="open-help">Help</button>
+          <button class="nav-btn right-child" id="open-previous">
+            Previous
+          </button>
         </div>
       </header>
+      <div class="about pop-up" id="about">
+        <div class="about-inner pop-up-inner">
+          <h2>Welcome to Kpopidle, a daily K-Pop guessing game!</h2>
+          <p>
+            Kpopidle is a daily guessing game where you need to guess the idol
+            with 8 tries! Use the hints available and view the silhouette if you
+            need extra help! Goodluck! Idol will change everyday at 12 AM PST
+          </p>
+          <button class="close-button" id="close-about">Close</button>
+        </div>
+      </div>
+      <div class="stats pop-up" id="stats">
+        <div class="stats-inner pop-up-inner">
+          <h2>Stats</h2>
+          <p>stats</p>
+          <button class="close-button" id="close-stats">Close</button>
+        </div>
+      </div>
+      <div class="help pop-up" id="help">
+        <div class="help-inner pop-up-inner">
+          <h2>Rules</h2>
+          <ul class="rules-list">
+            <li>You have 8 tries to guess the correct idol!</li>
+            <li>
+              If you need extra help, feel free to view the idol's silhouette.
+            </li>
+            <li>
+              If the idol you guessed has a similar feature, a hint will be
+              shown.
+            </li>
+            <li>
+              If the hint is yellow, that means your guess is within 2 years!
+            </li>
+            <li>If height is yellow, that means your guess is within 5 cm!</li>
+          </ul>
+          <button class="close-button" id="close-help">Close</button>
+        </div>
+      </div>
+      <div class="previous pop-up" id="previous">
+        <div class="previous-inner pop-up-inner">
+          <h2>Previous games</h2>
+          <p>previous</p>
+          <button class="close-button" id="close-previous">Close</button>
+        </div>
+      </div>
       <main class="game">
         <div class="search-area">
           <input
@@ -37,7 +84,7 @@
             <button class="nav-btn" id="silhouette-button">
               Show Silhouette
             </button>
-            <button class="timerButton nav-btn" id="timer">0:00</button>
+            <button class="timerButton nav-btn" id="timer">00:00</button>
           </div>
         </div>
         <ul class="suggestions"></ul>

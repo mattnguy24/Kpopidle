@@ -1,105 +1,27 @@
 let answer = {
-  name: "Jenny",
-  group: "BLACKPINK",
-  label: "YG",
-  gender: "Female",
-  age: 28,
-  height: 163,
-  debut: 2016,
+    "name": "Jennie",
+    "group": "BLACKPINK",
+    "label": "YG",
+    "gender": "Female",
+    "date_of_birth": "01-16-1996",
+    "height": 163,
+    "debut": 2016
 };
 
-const idols = [
-  {
-    name: "Jenny",
-    group: "BLACKPINK",
-    label: "YG",
-    gender: "Female",
-    age: 28,
-    height: 163,
-    debut: 2016,
-  },
-  {
-    name: "Jisoo",
-    group: "BLACKPINK",
-    label: "YG",
-    gender: "Female",
-    age: 29,
-    height: 162,
-    debut: 2016,
-  },
-  {
-    name: "Jungkook",
-    group: "BTS",
-    label: "HYBE",
-    gender: "Male",
-    age: 26,
-    height: 178,
-    debut: 2013,
-  },
-  {
-    name: "V",
-    group: "BTS",
-    label: "HYBE",
-    gender: "Male",
-    age: 28,
-    height: 179,
-    debut: 2013,
-  },
-  {
-    name: "RM",
-    group: "BTS",
-    label: "HYBE",
-    gender: "Male",
-    age: 29,
-    height: 181,
-    debut: 2013,
-  },
-  {
-    name: "G-Dragon",
-    group: "BIGBANG",
-    label: "YG",
-    gender: "Male",
-    age: 35,
-    height: 177,
-    debut: 2006,
-  },
-  {
-    name: "J-Hope",
-    group: "BTS",
-    label: "HYBE",
-    gender: "Male",
-    age: 30,
-    height: 177,
-    debut: 2013,
-  },
-  {
-    name: "Taeyang",
-    group: "BIGBANG",
-    label: "YG",
-    gender: "Male",
-    age: 35,
-    height: 173,
-    debut: "2006",
-  },
-  {
-    name: "T.O.P",
-    group: "BIGBANG",
-    label: "YG",
-    gender: "Male",
-    age: 37,
-    height: 181,
-    debut: 2006,
-  },
-  {
-    name: "Chaewon",
-    group: "LE SSERAFIM",
-    label: "HYBE",
-    gender: "Female",
-    age: 23,
-    height: 163,
-    debut: 2022,
-  },
-];
+const idolURL = 'https://zf4mlb0ylh.execute-api.us-east-1.amazonaws.com/production/idols';
+fetch(idolURL)
+    .then(response => {
+      if (response.ok)
+      {
+        idols = response.json();
+      }
+      else
+      {throw new Error ('API request failed');}
+    })
+
+
+let startTime = null;
+let timerInterval = null;
 const suggestionBox = document.querySelector(".suggestions");
 const inputBox = document.getElementById("game-search");
 
@@ -136,7 +58,7 @@ function display(result) {
   document.querySelectorAll(".suggestions-item").forEach((item) => {
     item.addEventListener("click", () => {
       const idol = idols.find((i) => i.name === item.textContent);
-      if (idol && boxNum < 8 && !selected.includes(idol)) {
+      if (idol && boxNum < 8 && !selected.includes(idol) && !answered) {
         showIdolData(idol, boxNum);
         boxNum++;
         suggestionBox.innerHTML = "";
@@ -146,22 +68,44 @@ function display(result) {
   });
 }
 
+function calculate_age(dateOfBirth) {
+  const today = new Date();
+  const dob = dateOfBirth.split('-');
+  const birthDate = new Date(dob[2], dob[0] - 1, dob[1]);
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  const dayDiff = today.getDate() - birthDate.getDate();
+
+  if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+    age--;
+  }
+  return age;
+}
+
 function showIdolData(idol, rowIndex) {
   const table = document.getElementById("guess-table");
   const row = table.rows[rowIndex];
-  if (idol == answer) {
-    answered = true;
-    boxNum = 9;
-  }
+  const hints = getHints(idol, answer);
   row.innerHTML = `
-    <td>${idol.name}</td>
-    <td>${idol.group}</td>
-    <td>${idol.label}</td>
-    <td>${idol.gender}</td>
-    <td>${idol.age}</td>
-    <td>${idol.height}</td>
-    <td>${idol.debut}</td>
+    <td>${idol.name} ${hints.name}</td>
+    <td>${idol.group} ${hints.group}</td>
+    <td>${idol.label} ${hints.label}</td>
+    <td>${idol.gender} ${hints.gender}</td>
+    <td>${calculate_age(idol.date_of_birth)} ${hints.age}</td>
+    <td>${idol.height} ${hints.height}</td>
+    <td>${idol.debut} ${hints.debut}</td>
   `;
+  if (
+  idol.name == answer.name &&
+  idol.group == answer.group &&
+  idol.label == answer.label &&
+  idol.gender == answer.gender &&
+  calculate_age(idol.date_of_birth) == calculate_age(answer.date_of_birth) &&
+  idol.height == answer.height &&
+  idol.debut == answer.debut) {
+  answered = true;
+  stopTimer();
+}
   selected.push(idol);
 }
 
@@ -171,33 +115,76 @@ function getHints(guess, answer) {
   ["name", "group", "label", "gender"].forEach((key) => {
     hints[key] = guess[key] === answer[key] ? "✅" : "🔴";
   });
-  if (guess.age == answer.age) {
-    feedback.age == "✅";
+  if (calculate_age(guess.date_of_birth) == calculate_age(answer.date_of_birth)) {
+    hints.age = "✅";
   } else {
-    const ageDifference = answer.age - guess.age;
+    const ageDifference = calculate_age(answer.date_of_birth) - calculate_age(guess.date_of_birth);
     if (ageDifference > 2) {
-      hints[age] = "🔴⬆️";
+      hints.age = "🔴⬆️";
     } else if (ageDifference < -2) {
-      hints[age] = "🔴⬇️";
+      hints.age = "🔴⬇️";
     } else if (ageDifference > 0) {
-      hints[age] = "🟡⬆️";
-    } else if (ageDifference > 0) {
-      hints[age] = "🟡⬇️";
+      hints.age = "🟡⬆️";
+    } else if (ageDifference < 0) {
+      hints.age = "🟡⬇️";
     }
   }
 
   if (guess.height == answer.height) {
-    feedback.age == "✅";
+    hints.height = "✅";
   } else {
-    const heightDifference = answer.age - guess.age;
+    const heightDifference = answer.height - guess.height;
     if (heightDifference > 2) {
-      hints[height] = "🔴⬆️";
+      hints.height = "🔴⬆️";
     } else if (heightDifference < -2) {
-      hints[height] = "🔴⬇️";
+      hints.height = "🔴⬇️";
     } else if (heightDifference > 0) {
-      hints[height] = "🟡⬆️";
-    } else if (heightDifference > 0) {
-      hints[height] = "🟡⬇️";
+      hints.height = "🟡⬆️";
+    } else if (heightDifference < 0) {
+      hints.height = "🟡⬇️";
     }
   }
+
+    if (guess.debut == answer.debut) {
+    hints.debut = "✅";
+  } else {
+    const debutDifference = answer.debut - guess.debut;
+    if (debutDifference > 2) {
+      hints.debut = "🔴⬆️";
+    } else if (debutDifference < -2) {
+      hints.debut = "🔴⬇️";
+    } else if (debutDifference > 0) {
+      hints.debut = "🟡⬆️";
+    } else if (debutDifference < 0) {
+      hints.debut = "🟡⬇️";
+    }
+  }
+  return hints;
 }
+
+startTime = Date.now();
+timerInterval = setInterval(() => {
+  const elapsed = Math.floor((Date.now() - startTime) / 1000);
+  const minutes = String(Math.floor(elapsed / 60)).padStart(2, '0');
+  const seconds = String(elapsed % 60).padStart(2, '0');
+  document.getElementById("timer").textContent = `${minutes}:${seconds}`;
+}, 1000);
+
+
+function stopTimer() {
+  clearInterval(timerInterval);
+}
+
+function setPopUp(openBtnId, popupId, closeBtnId) {
+  const openBtn = document.getElementById(openBtnId);
+  const popup = document.getElementById(popupId);
+  const closeBtn = document.getElementById(closeBtnId);
+
+  openBtn.addEventListener("click", () => popup.classList.add("open"));
+  closeBtn.addEventListener("click", () => popup.classList.remove("open"));
+}
+
+setPopUp("open-about", "about", "close-about");
+setPopUp("open-stats", "stats", "close-stats");
+setPopUp("open-help", "help", "close-help");
+setPopUp("open-previous", "previous", "close-previous");
