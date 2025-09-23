@@ -1,19 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-J5J4S9Z4VY"
+    ></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3112158077835860"
+     crossorigin="anonymous"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-J5J4S9Z4VY");
+    </script>
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preload" as="image" href="/static/logo.png" fetchpriority="high">
+    <link rel="preconnect" href="https://kpopidle.s3.amazonaws.com">
+    <link rel="preconnect" href="https://api.kpopidle.com">
     <meta charset="UTF-8" />
-    <title>Kpopidle – A Daily K-Pop Guessing Game</title>
+    <title>Kpopidle | Kpop Idol Guessing Game – Daily K-Pop Challenge</title>
+    <link rel="icon" type="image/x-icon" href="/static/logo_favicon.ico" />
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
     />
     <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <meta name="description" content="Play Kpopidle, the daily Kpop idol guessing game! Guess the idol in 8 tries using hints, silhouettes, and group clues. A fun daily K-pop challenge for fans.">
   </head>
-
   <body>
+<!--    <div class="side-ad left-ad">-->
+<!--      <ins class="adsbygoogle"-->
+<!--           style="display:inline-block;width:160px;height:600px"-->
+<!--           data-ad-client="ca-pub-3112158077835860"-->
+<!--           data-ad-slot="6047005690">-->
+<!--      </ins>-->
+<!--    </div>-->
+<!--    <div class="side-ad right-ad">-->
+<!--      <ins class="adsbygoogle"-->
+<!--           style="display:inline-block;width:160px;height:600px"-->
+<!--           data-ad-client="ca-pub-3112158077835860"-->
+<!--           data-ad-slot="1397959416">-->
+<!--      </ins>-->
+<!--    </div>-->
+    <div class="bottom-ad">
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:100%;height:90px"
+           data-ad-client="ca-pub-3112158077835860"
+           data-ad-slot="4080001067"
+           data-full-width-responsive="true">
+      </ins>
+    </div>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
     <div class="container">
       <header class="top-bar">
-        <img src="static/logo3.png" class="logo" />
+        <img src="/static/logo.png" class="logo" alt="Kpop idol guessing game logo" />
         <h1 class="top-writing">
           <span class="title-purple">A Daily K-POP<br /></span>
           <span class="title-pink">Guessing Game</span>
@@ -33,7 +83,8 @@
           <p>
             Kpopidle is a daily guessing game where you need to guess the idol
             with 8 tries! Use the hints available and view the silhouette if you
-            need extra help! Goodluck! Idol will change everyday at 12 AM PST
+            need extra help! Goodluck! Idol will change everyday at 12 AM PST.
+            For questions or inquiries, contact kpopidleguessing@gmail.com
           </p>
           <button class="close-button" id="close-about">Close</button>
         </div>
@@ -41,7 +92,7 @@
       <div class="stats pop-up" id="stats">
         <div class="stats-inner pop-up-inner">
           <h2>Stats</h2>
-          <p>stats</p>
+          <p id="game-stats">stats</p>
           <button class="close-button" id="close-stats">Close</button>
         </div>
       </div>
@@ -49,18 +100,23 @@
         <div class="help-inner pop-up-inner">
           <h2>Rules</h2>
           <ul class="rules-list">
-            <li>You have 8 tries to guess the correct idol!</li>
+            <li>You have 8 tries to guess the mystery idol!</li>
             <li>
               If you need extra help, feel free to view the idol's silhouette.
             </li>
             <li>
-              If the idol you guessed has a similar feature, a hint will be
+              If the idol you guessed has a similar feature, a green check ✅ will be
               shown.
             </li>
             <li>
-              If the hint is yellow, that means your guess is within 2 years!
+              If the age or debut is yellow 🟡, that means your guess is within 2 years!
             </li>
-            <li>If height is yellow, that means your guess is within 5 cm!</li>
+            <li>
+              If height is yellow 🟡, that means your guess is within 5 cm!
+            </li>
+            <li>
+              Idol will be updated everyday at 12 AM PST!
+            </li>
           </ul>
           <button class="close-button" id="close-help">Close</button>
         </div>
@@ -68,11 +124,42 @@
       <div class="previous pop-up" id="previous">
         <div class="previous-inner pop-up-inner">
           <h2>Previous games</h2>
-          <p>previous</p>
+          <p>
+            <div>Select a date to play previous games!</div>
+            <div></div>
+            <div><Strong>Current date: </Strong></div>
+            <div id="selectedDate">{{ date }}</div>
+            <input class="date-selector" id="date-selector" placeholder={{date}}>
+            <button class="date-submit" id="date-submit">Submit</button>
+          </p>
           <button class="close-button" id="close-previous">Close</button>
         </div>
       </div>
+      <div class="previous pop-up" id="disclaimer">
+        <div class="previous-inner pop-up-inner">
+          <h2>DISCLAIMER</h2>
+          <p>
+            This game is an unofficial fan-made project and is not affiliated
+            with, endorsed by, or connected to any of the artists, labels, or
+            companies mentioned. All names, groups, and labels are the property
+            of their respective owners.
+          </p>
+          <button class="close-button" id="close-disclaimer">Close</button>
+        </div>
+      </div>
+      <div class="previous pop-up" id="privacy">
+        <div class="previous-inner pop-up-inner">
+          <h2>Privacy Policy</h2>
+          <p>
+            This game only stores gameplay info such as win/loss, number of
+            guesses, and time taken. We do not collect any personal information
+            or data and respect user privacy.
+          </p>
+          <button class="close-button" id="close-privacy">Close</button>
+        </div>
+      </div>
       <main class="game">
+        <div class="image-popup" id="idol-image"></div>
         <div class="search-area">
           <input
             type="text"
@@ -129,6 +216,19 @@
         </table>
       </main>
     </div>
-    <footer class="privacy-policy">Privacy Policy</footer>
+    <footer>
+      <div class="footers">
+        <button class="privacy-policy" id="open-privacy">Privacy Policy</button>
+        <button class="disclaimer" id="open-disclaimer">Disclaimer</button>
+      </div>
+    </footer>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    config = {
+      minDate: "2025-08-09",
+      maxDate: "{{today_date}}",
+      disableMobile: true
+    }
+    flatpickr("#date-selector", config);</script>
   </body>
 </html>
