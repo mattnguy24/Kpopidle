@@ -10,8 +10,15 @@ let startTime = null;
 let timerInterval = null;
 let today = {};
 const path = window.location.pathname;
-const gameDate = document.getElementById('selectedDate').innerText
+let gameDate = getPSTDate();
+let urlDate = getUrlDate();
+if (urlDate && urlDate !== gameDate) {
+  gameDate = urlDate;
+}
 
+document.getElementById('selectedDate').innerText = gameDate;
+const calendarInput = document.getElementById('date-selector');
+calendarInput.placeholder = gameDate;
 
 let boxNum = 0;
 let selected = [];
@@ -345,7 +352,8 @@ function storeGame(selectedId, elapsedTime) {
 }
 
 function loadGame() {
-  const allGames = JSON.parse(localStorage.getItem("kpopidleGames")) || {};
+  const storedGames = localStorage.getItem("kpopidleGames");
+  const allGames = storedGames ? JSON.parse(storedGames) : {};
   today = allGames[gameDate] || { selected: [], time: 0, uploaded: false };
 }
 
@@ -364,3 +372,31 @@ document.addEventListener("DOMContentLoaded", () => {
     helpPopup.classList.add("open");
   }
 });
+
+function getPSTDate() {
+  const now = new Date();
+
+  // Convert to Pacific Time using Intl API
+  const pstString = now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" });
+
+  // Convert back into a Date object in PST context
+  const pstDate = new Date(pstString);
+
+  // Format YYYY-MM-DD
+  const year = pstDate.getFullYear();
+  const month = String(pstDate.getMonth() + 1).padStart(2, '0');
+  const day = String(pstDate.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
+
+
+function getUrlDate() {
+    if (path.startsWith("/history/")) {
+        const date = path.split("/")[2];
+        if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+            return date;
+        }
+    }
+    return null;
+}

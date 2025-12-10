@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
+<!--     Google tag (gtag.js)-->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-J5J4S9Z4VY"
     ></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3112158077835860"
-     crossorigin="anonymous"></script>
+  <!--    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3112158077835860"-->
+  <!--     crossorigin="anonymous">-->
+  <!--    </script>-->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-
       gtag("config", "G-J5J4S9Z4VY");
     </script>
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
@@ -27,9 +27,9 @@
     <link rel="icon" type="image/x-icon" href="/static/logo_favicon.ico" />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
+      href="/static/style.css"
     />
-    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <script src="/static/script.js" defer></script>
     <meta name="description" content="Play Kpopidle, the daily Kpop idol guessing game! Guess the idol in 8 tries using hints, silhouettes, and group clues. A fun daily K-pop challenge for fans.">
   </head>
   <body>
@@ -47,19 +47,19 @@
 <!--           data-ad-slot="1397959416">-->
 <!--      </ins>-->
 <!--    </div>-->
-    <div class="bottom-ad">
-      <ins class="adsbygoogle"
-           style="display:inline-block;width:100%;height:90px"
-           data-ad-client="ca-pub-3112158077835860"
-           data-ad-slot="4080001067"
-           data-full-width-responsive="true">
-      </ins>
-    </div>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-      (adsbygoogle = window.adsbygoogle || []).push({});
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+<!--    <div class="bottom-ad">-->
+<!--      <ins class="adsbygoogle"-->
+<!--           style="display:inline-block;width:100%;height:90px"-->
+<!--           data-ad-client="ca-pub-3112158077835860"-->
+<!--           data-ad-slot="4080001067"-->
+<!--           data-full-width-responsive="true">-->
+<!--      </ins>-->
+<!--    </div>-->
+<!--    <script>-->
+<!--      (adsbygoogle = window.adsbygoogle || []).push({});-->
+<!--      (adsbygoogle = window.adsbygoogle || []).push({});-->
+<!--      (adsbygoogle = window.adsbygoogle || []).push({});-->
+<!--    </script>-->
 
     <div class="container">
       <header class="top-bar">
@@ -128,7 +128,7 @@
             <div>Select a date to play previous games!</div>
             <div></div>
             <div><Strong>Current date: </Strong></div>
-            <div id="selectedDate">{{ date }}</div>
+            <div id="selectedDate">date</div>
             <input class="date-selector" id="date-selector" placeholder={{date}}>
             <button class="date-submit" id="date-submit">Submit</button>
           </p>
@@ -224,11 +224,15 @@
     </footer>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
-    config = {
-      minDate: "2025-08-09",
-      maxDate: "{{today_date}}",
-      disableMobile: true
-    }
-    flatpickr("#date-selector", config);</script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const todayDate = getPSTDate();
+
+      flatpickr("#date-selector", {
+        minDate: "2025-08-09",
+        maxDate: todayDate,
+        disableMobile: true
+      });
+    });
+  </script>
   </body>
 </html>
