@@ -1,6 +1,6 @@
 run application.py
 
 NOTE:
-will not work on localhost, game logic and static files stored behind s3 and api gateway
+will not work on localhost, game logic stored behind api gateway (CORs disabled(
 
 view - https://kpopidle.com
